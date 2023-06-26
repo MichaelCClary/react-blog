@@ -75,7 +75,6 @@ It will create a folder named build with your compiled project inside. After tha
 * [Recharts](https://github.com/recharts/recharts) - Charting library I used for the statistics
 * [Aos](https://github.com/michalsnik/aos) - Animations based on viewport
 * [React-Cropper](https://github.com/roadmanfong/react-cropper) - Cropper for the image uploads
-* [React-Stripe-js](https://github.com/stripe/react-stripe-js) - Stripes payment elements
 
 ## Contribute
 Show your support by ⭐ the project. Pull requests are always welcome.
