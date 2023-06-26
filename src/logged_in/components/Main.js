@@ -7,7 +7,6 @@ import NavBar from "./navigation/NavBar";
 import ConsecutiveSnackbarMessages from "../../shared/components/ConsecutiveSnackbarMessages";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
 import persons from "../dummy_data/persons";
-import LazyLoadAddBalanceDialog from "./subscription/LazyLoadAddBalanceDialog";
 
 const styles = (theme) => ({
   main: {
@@ -110,63 +109,6 @@ function Main(props) {
     setStatistics(statistics);
   }, [setStatistics]);
 
-  const fetchRandomTransactions = useCallback(() => {
-    const transactions = [];
-    const iterations = 32;
-    const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5);
-    const transactionTemplates = [
-      {
-        description: "Starter subscription",
-        isSubscription: true,
-        balanceChange: -1499,
-      },
-      {
-        description: "Premium subscription",
-        isSubscription: true,
-        balanceChange: -2999,
-      },
-      {
-        description: "Business subscription",
-        isSubscription: true,
-        balanceChange: -4999,
-      },
-      {
-        description: "Tycoon subscription",
-        isSubscription: true,
-        balanceChange: -9999,
-      },
-      {
-        description: "Added funds",
-        isSubscription: false,
-        balanceChange: 2000,
-      },
-      {
-        description: "Added funds",
-        isSubscription: false,
-        balanceChange: 5000,
-      },
-    ];
-    let curUnix = Math.round(
-      new Date().getTime() / 1000 - iterations * oneMonthSeconds
-    );
-    for (let i = 0; i < iterations; i += 1) {
-      const randomTransactionTemplate =
-        transactionTemplates[
-          Math.floor(Math.random() * transactionTemplates.length)
-        ];
-      const transaction = {
-        id: i,
-        description: randomTransactionTemplate.description,
-        balanceChange: randomTransactionTemplate.balanceChange,
-        paidUntil: curUnix + oneMonthSeconds,
-        timestamp: curUnix,
-      };
-      curUnix += oneMonthSeconds;
-      transactions.push(transaction);
-    }
-    transactions.reverse();
-    setTransactions(transactions);
-  }, [setTransactions]);
 
   const fetchRandomMessages = useCallback(() => {
     shuffle(persons);
@@ -290,12 +232,6 @@ function Main(props) {
     setHasFetchedDateTimePicker,
   ]);
 
-  const selectSubscription = useCallback(() => {
-    smoothScrollTop();
-    document.title = "WaVer - Subscription";
-    setSelectedTab("Subscription");
-  }, [setSelectedTab]);
-
   const getPushMessageFromChild = useCallback(
     (pushMessage) => {
       setPushMessageToSnackbar(() => pushMessage);
@@ -306,24 +242,17 @@ function Main(props) {
   useEffect(() => {
     fetchRandomTargets();
     fetchRandomStatistics();
-    fetchRandomTransactions();
     fetchRandomMessages();
     fetchRandomPosts();
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
-    fetchRandomTransactions,
     fetchRandomMessages,
     fetchRandomPosts,
   ]);
 
   return (
     <Fragment>
-      <LazyLoadAddBalanceDialog
-        open={isAddBalanceDialogOpen}
-        onClose={closeAddBalanceDialog}
-        onSuccess={onPaymentSuccess}
-      />
       <NavBar
         selectedTab={selectedTab}
         messages={messages}
@@ -342,13 +271,11 @@ function Main(props) {
           DateTimePicker={DateTimePicker}
           toggleAccountActivation={toggleAccountActivation}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          transactions={transactions}
           statistics={statistics}
           posts={posts}
           targets={targets}
           selectDashboard={selectDashboard}
           selectPosts={selectPosts}
-          selectSubscription={selectSubscription}
           openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}
           setPosts={setPosts}

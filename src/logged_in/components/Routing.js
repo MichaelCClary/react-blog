@@ -4,7 +4,6 @@ import { Switch } from "react-router-dom";
 import withStyles from '@mui/styles/withStyles';
 import Dashboard from "./dashboard/Dashboard";
 import Posts from "./posts/Posts";
-import Subscription from "./subscription/Subscription";
 import PropsRoute from "../../shared/components/PropsRoute";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
 
@@ -52,7 +51,6 @@ function Routing(props) {
     DateTimePicker,
     pushMessageToSnackbar,
     posts,
-    transactions,
     toggleAccountActivation,
     CardChart,
     statistics,
@@ -62,8 +60,6 @@ function Routing(props) {
     isAccountActivated,
     selectDashboard,
     selectPosts,
-    selectSubscription,
-    openAddBalanceDialog,
   } = props;
   useLocationBlocker();
   return (
@@ -80,14 +76,6 @@ function Routing(props) {
           posts={posts}
           setPosts={setPosts}
           selectPosts={selectPosts}
-        />
-        <PropsRoute
-          path="/c/subscription"
-          component={Subscription}
-          transactions={transactions}
-          pushMessageToSnackbar={pushMessageToSnackbar}
-          selectSubscription={selectSubscription}
-          openAddBalanceDialog={openAddBalanceDialog}
         />
         <PropsRoute
           path=""
@@ -116,7 +104,6 @@ Routing.propTypes = {
   setTargets: PropTypes.func.isRequired,
   setPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleAccountActivation: PropTypes.func,
   CardChart: PropTypes.elementType,
   statistics: PropTypes.object.isRequired,
@@ -124,7 +111,6 @@ Routing.propTypes = {
   isAccountActivated: PropTypes.bool.isRequired,
   selectDashboard: PropTypes.func.isRequired,
   selectPosts: PropTypes.func.isRequired,
-  selectSubscription: PropTypes.func.isRequired,
   openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
