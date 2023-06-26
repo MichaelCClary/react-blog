@@ -1,18 +1,16 @@
 import React, { Fragment, useRef, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+
 import {
   AppBar,
   Toolbar,
   Typography,
-  Avatar,
   Drawer,
   List,
   IconButton,
   ListItem,
   ListItemIcon,
-  ListItemText,
   Hidden,
   Tooltip,
   Box,
@@ -20,13 +18,10 @@ import {
 import withStyles from "@mui/styles/withStyles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ImageIcon from "@mui/icons-material/Image";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import MenuIcon from "@mui/icons-material/Menu";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import MessagePopperButton from "./MessagePopperButton";
 import SideDrawer from "./SideDrawer";
-import Balance from "./Balance";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -126,12 +121,11 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, openAddBalanceDialog, theme } = props;
+  const { selectedTab, classes,theme } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
-  const isWidthUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true);
@@ -229,40 +223,6 @@ function NavBar(props) {
               </Typography>
             </Hidden>
           </Box>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            alignItems="center"
-            width="100%"
-          >
-            {isWidthUpSm && (
-              <Box mr={3}>
-                <Balance
-                  balance={2573}
-                  openAddBalanceDialog={openAddBalanceDialog}
-                />
-              </Box>
-            )}
-            <MessagePopperButton messages={messages} />
-            <ListItem
-              disableGutters
-              className={classNames(classes.iconListItem, classes.smBordered)}
-            >
-              <Avatar
-                alt="profile picture"
-                src={`${process.env.PUBLIC_URL}/images/logged_in/profilePicture.jpg`}
-                className={classNames(classes.accountAvatar)}
-              />
-              {isWidthUpSm && (
-                <ListItemText
-                  className={classes.username}
-                  primary={
-                    <Typography color="textPrimary">Username</Typography>
-                  }
-                />
-              )}
-            </ListItem>
-          </Box>
           <IconButton
             onClick={openDrawer}
             color="primary"
@@ -342,7 +302,6 @@ NavBar.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedTab: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);

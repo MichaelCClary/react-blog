@@ -43,13 +43,11 @@ function Main(props) {
   const [hasFetchedDateTimePicker, setHasFetchedDateTimePicker] = useState(
     false
   );
-  const [transactions, setTransactions] = useState([]);
   const [statistics, setStatistics] = useState({ views: [], profit: [] });
   const [posts, setPosts] = useState([]);
   const [targets, setTargets] = useState([]);
   const [messages, setMessages] = useState([]);
   const [isAccountActivated, setIsAccountActivated] = useState(false);
-  const [isAddBalanceDialogOpen, setIsAddBalanceDialogOpen] = useState(false);
   const [pushMessageToSnackbar, setPushMessageToSnackbar] = useState(null);
 
   const fetchRandomTargets = useCallback(() => {
@@ -70,21 +68,6 @@ function Main(props) {
     }
     setTargets(targets);
   }, [setTargets]);
-
-  const openAddBalanceDialog = useCallback(() => {
-    setIsAddBalanceDialogOpen(true);
-  }, [setIsAddBalanceDialogOpen]);
-
-  const closeAddBalanceDialog = useCallback(() => {
-    setIsAddBalanceDialogOpen(false);
-  }, [setIsAddBalanceDialogOpen]);
-
-  const onPaymentSuccess = useCallback(() => {
-    pushMessageToSnackbar({
-      text: "Your balance has been updated.",
-    });
-    setIsAddBalanceDialogOpen(false);
-  }, [pushMessageToSnackbar, setIsAddBalanceDialogOpen]);
 
   const fetchRandomStatistics = useCallback(() => {
     const statistics = { profit: [], views: [] };
@@ -256,7 +239,6 @@ function Main(props) {
       <NavBar
         selectedTab={selectedTab}
         messages={messages}
-        openAddBalanceDialog={openAddBalanceDialog}
       />
       <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
@@ -276,7 +258,6 @@ function Main(props) {
           targets={targets}
           selectDashboard={selectDashboard}
           selectPosts={selectPosts}
-          openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}
           setPosts={setPosts}
         />

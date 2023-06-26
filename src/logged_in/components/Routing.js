@@ -111,7 +111,6 @@ Routing.propTypes = {
   isAccountActivated: PropTypes.bool.isRequired,
   selectDashboard: PropTypes.func.isRequired,
   selectPosts: PropTypes.func.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(memo(Routing));
