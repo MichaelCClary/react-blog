@@ -23,7 +23,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SideDrawer from "./SideDrawer";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 const styles = (theme) => ({
   appBar: {
@@ -121,7 +120,7 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, classes,theme } = props;
+  const { selectedTab, classes } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
